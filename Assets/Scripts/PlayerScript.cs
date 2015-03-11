@@ -9,7 +9,6 @@ public class PlayerScript : MonoBehaviour
 	/// 1 - The speed of the ship
 	/// </summary>
 	public Vector2 speed = new Vector2(50, 50);
-	
 	// 2 - Store the movement
 	private Vector2 movement;
 	
@@ -38,16 +37,29 @@ public class PlayerScript : MonoBehaviour
 			{
 				// false because the player is not an enemy
 				weapon.Attack(false);
+				SoundEffectsHelper.Instance.MakePlayerShotSound();
 			}
 		}
 		
-		// ...
+
+
 		
 	}
-	
+
+	public void OnDestroy()
+	{
+		// Game Over.
+		// Add the script to the parent because the current game
+		// object is likely going to be destroyed immediately.
+		transform.parent.gameObject.AddComponent<GameOverScript>();
+	}
+
 	void FixedUpdate()
 	{
 		// 5 - Move the game object
 		rigidbody2D.velocity = movement;
 	}
+
+
+
 }

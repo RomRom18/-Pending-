@@ -26,6 +26,7 @@ public class HealthScript : MonoBehaviour
 		
 		if (hp <= 0)
 		{
+			SpecialEffectsHelper.Instance.Explosion(transform.position);
 			// Dead!
 			Destroy(gameObject);
 		}
@@ -41,7 +42,7 @@ public class HealthScript : MonoBehaviour
 			if (shot.isEnemyShot != isEnemy)
 			{
 				Damage(shot.damage);
-				
+				SoundEffectsHelper.Instance.MakeExplosionSound();
 				// Destroy the shot
 				Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
 			}
